@@ -11,10 +11,10 @@ enable_language (Fortran)
 add_definitions($ENV{DEFS})
 
 if (CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-set(ENV{JSONFORTRAN} "/home/reemh/Downloads/json-fortran_gnu")
+set(ENV{JSONFORTRAN} "/home/u186944/json-fortran-example/json-fortran/build")
 set(CMAKE_Fortran_FLAGS "-fPIC -cpp -fopenmp -O0 -ffree-line-length-512")
 else()
-set(ENV{JSONFORTRAN} "/home/reemh/Downloads/json-fortran")
+set(ENV{JSONFORTRAN} "/home/u186944/json-fortran-example/json-fortran/build")
 set(CMAKE_Fortran_FLAGS "-fPIC -cpp -fpp -O2 -g -qopenmp ")
 endif()
 
