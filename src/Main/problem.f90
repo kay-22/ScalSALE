@@ -690,7 +690,8 @@ contains
 #endif
 
         !call this%cr%Restart(ckpt_name)
-
+        call OMP_SET_NUM_THREADS(24)
+        
         finish = omp_get_wtime()
                         !call this%Write_to_files()
         ncyc = 1

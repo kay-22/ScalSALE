@@ -16,11 +16,11 @@ cd ../../build
 if test "$1" = "GNU"
 then
   echo "@@@@ GNU @@@@"
-  I_MPI_F90=''
+  export I_MPI_F90=''
   FC=mpif90 cmake ../src/
 else
   echo "@@@@ INTEL @@@@"
-  I_MPI_F90=ifort
+  export I_MPI_F90=ifort
   FC=mpif90 cmake ../src 
 fi
 #if test "$1" = tests
