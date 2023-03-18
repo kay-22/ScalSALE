@@ -134,6 +134,7 @@ contains
          else
             call coords%Point_to_data(x_tag, y_tag, z_tag)
          end if
+        !$pragma paralel do private(k,j,i)
          do k = 1,this%d3
             do j = 1, this%d2
                do i = 1, this%d1

@@ -127,6 +127,7 @@ contains
 
 
    subroutine Calculate_vertex_mass_3d(this, coordinates, tot_density, c_mass)
+      use omp_lib
       use geometry_module, only : Tetrahederon_volume
       implicit none
       class(vertex_mass_t), intent(in out) :: this
@@ -184,6 +185,7 @@ contains
       call coordinates%Point_to_data(x, y, z)
 
          vertex_mass(1:nxp, 1:nyp , 1:nzp) = 0d0
+         !$omp parallel do private(k,j,i,kk,jj,ii,i1,i2,i3,j1,j2,j3,k1,k2,k3) 
          do k = 1, nzp
             do j = 1, nyp
                do i = 1, nxp

@@ -53,6 +53,8 @@ contains
       integer :: i, j, k
       gamma1 = gamma_gas - 1d0
       atomic_weight = atomic_mass / AVOGADRO
+      
+      !$omp parallel do private(k,j,i)
       do k = 1, nz
          do j = 1, ny
             do i = 1, nx

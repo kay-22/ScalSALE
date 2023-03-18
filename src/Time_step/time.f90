@@ -317,6 +317,7 @@ contains
       ny = velocity%d2 - 1
       nz = velocity%d3 - 1
 
+        !$omp parallel do private(k,j,i,vel_diff_coor_diff_i,vel_diff_coor_diff_j,vel_diff_coor_diff_k,vel_grad)
       do k = 1, nz
          do j = 1, ny
             do i = 1, nx

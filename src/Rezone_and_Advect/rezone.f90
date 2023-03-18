@@ -248,7 +248,7 @@ contains
 
 
 
-
+    !$omp parallel do private(k,j,i)
       do k = 0, this%nzp + 1
          do j = 0, this%nyp + 1
             do i = 0, this%nxp + 1
@@ -266,7 +266,7 @@ contains
 
 
 
-
+    !$omp parallel do private(k,j,i,velocity_sq,factor)
       do k = 1, this%nzp
          do j = 1, this%nyp
             do i = 1, this%nxp
@@ -287,7 +287,7 @@ contains
       select case (this%rezone_type)
          case(0)
 
-
+            !$omp parallel do private(k,j,i)
             do k = 1, this%nzp
                do j = 1, this%nyp
                   do i = 1, this%nxp
@@ -299,6 +299,7 @@ contains
             end do
 
          case(1)
+             !$omp parallel do private(k,j,i)
             do k = 1, this%nzp
                do j = 1, this%nyp
                   do i = 1, this%nxp

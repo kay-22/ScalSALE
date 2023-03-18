@@ -523,6 +523,7 @@ contains
         dp_drho     = 0d0
         dp_de       = 0d0
 
+        !$omp parallel do private(k,j,i,tmp_mat)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -557,7 +558,7 @@ contains
         call this%materials%Apply_eos(this%nx, this%ny, this%nz, this%emf, .true.)
 
 
-
+        !$omp parallel do private(k,j,i,tmp_mat)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -578,6 +579,7 @@ contains
         call this%total_pressure%Exchange_virtual_space_nonblocking()
         call this%total_density%Apply_boundary(.false.)
 
+        !$omp parallel do private(k,j,i)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -592,6 +594,8 @@ contains
         deallocate(dt_de_temp)
 
         call this%total_pressure%Exchange_end()
+        
+        !$omp parallel do private(k,j,i)
         do k = 0, this%nzp
             do j = 0, this%nyp
                 do i = 0, this%nxp
@@ -664,6 +668,7 @@ contains
         call this%materials%vof      %Point_to_data(mat_vof)
         call volume%Point_to_data(vol)
 
+        !$omp parallel do private(k,j,i)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -671,7 +676,8 @@ contains
                 end do
             end do
         end do
-
+        
+        !$omp parallel do private(k,j,i,tmp_mat)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -805,8 +811,8 @@ contains
 
 
 
-
-
+        
+        !$omp parallel do private(k,j,i,ip,im,jp,jm,kp,km,x1,x2,x3,x4,x5,x6,y1,y2,y3,y4,y5,y6,z1,z2,z3,z4,z5,z6)
         do k = 1, this%nzp
             do j = 1, this%nyp
                 do i = 1, this%nxp
@@ -1157,6 +1163,7 @@ contains
         time%dt_cour = 1d20
         call this%acceleration%Exchange_end()
 
+        !$omp parallel do private(k,j,i,ip,jp,kp,avg_acc_x,avg_acc_y,avg_acc_z,tot_acc,r1,r2,r3,r4,r5,r6,r7,r8,x1,x2,x3,x4,x5,x6,x7,x8,y1,y2,y3,y4,y5,y6,y7,y8,z1,z2,z3,z4,z5,z6,z7,z8,x_avg,y_avg,z_avg,eff_length,eff_vel_div,quad_visc_fac_temp,linear_visc_fac_temp,dt_cour_temp)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx
@@ -1260,6 +1267,7 @@ contains
                         a_visc(i, j, k) = min(0d0, eff_vel_div) * a_visc(i, j, k)
                         dt_cour_temp = eff_length * eff_length / sound_vel(i ,j, k)
 
+                        
                         if (dt_cour_temp < time%dt_cour) then
                             time%dt_cour = dt_cour_temp
                             time%i_cour = i
@@ -1388,6 +1396,8 @@ contains
         call this%a_visc         %Point_to_data(a_visc)
 
         call this%a_visc%Exchange_end()
+        
+        !$omp parallel do private(k,j,i,ip,im,jp,jm,kp,km,x1,x2,x3,x4,x5,x6,y1,y2,y3,y4,y5,y6,z1,z2,z3,z4,z5,z6)
         do k = 1, this%nzp
             do j = 1, this%nyp
                 do i = 1, this%nxp
@@ -1789,6 +1799,7 @@ contains
         call this%materials%sie        %Point_to_data(sie_vof)
         call this%materials%vof        %Point_to_data(mat_vof)
 
+        !$omp parallel do private(i,j,k,tmp_mat,vol_diff,vol_diff_stress,a_visc_temp,pressure_temp,dp_de_temp,dp_drho_temp,mass_vof_temp,vol_diff_vof_temp,vol_vof_temp,stress_fac,vol_diff_vof_stress_temp,sie_diff)
         do k = 1, this%nz
             do j = 1, this%ny
                 do i = 1, this%nx

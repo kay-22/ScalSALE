@@ -33,6 +33,7 @@ contains
             select case(edge_num)
                 case(1)
                     i = 1
+                    !$omp parallel do private(k,j,m)
                     do k = 0, nzp
                         do j = 0, nyp
                             do m = 1, nmats
@@ -44,6 +45,7 @@ contains
 
                 case(2)
                     i = nxp
+                     !$omp parallel do private(k,j,m)
                     do k = 0, nzp
                         do j = 0, nyp
                             do m = 1, nmats
@@ -55,6 +57,7 @@ contains
 
                 case(3)
                     j = 1
+                     !$omp parallel do private(k,i,m)
                     do k = 0, nzp
                         do i = 0, nxp
                             do m = 1, nmats
@@ -66,6 +69,7 @@ contains
 
                 case(4)
                     j = nyp
+                     !$omp parallel do private(k,i,m)
                     do k = 0, nzp
                         do i = 0, nxp
                             do m = 1, nmats
@@ -78,6 +82,7 @@ contains
 
                 case(5)
                     k = 1
+                     !$omp parallel do private(j,i,m)
                     do j = 0, nyp
                         do i = 0, nxp
                             do m = 1, nmats
@@ -89,6 +94,7 @@ contains
 
                 case(6)
                     k = nzp
+                     !$omp parallel do private(j,i,m)
                     do j = 0, nyp
                         do i = 0, nxp
                             do m = 1, nmats
@@ -105,6 +111,7 @@ contains
             select case(edge_num)
                 case(1)
                     i = 1
+                     !$omp parallel do private(k,j)
                     do k = 0, nzp
                         do j = 0, nyp
                             values(i-1, j, k) = values(i, j, k)
@@ -114,6 +121,7 @@ contains
 
                 case(2)
                     i = nxp
+                    !$omp parallel do private(k,j)
                     do k = 0, nzp
                         do j = 0, nyp
                             values(i, j, k) = values(i-1, j, k)
@@ -122,6 +130,7 @@ contains
 
                 case(3)
                     j = 1
+                    !$omp parallel do private(k,i)
                     do k = 0, nzp
                         do i = 0, nxp
                             values(i, j-1, k) = values(i, j, k)
@@ -130,6 +139,7 @@ contains
 
                 case(4)
                     j = nyp
+                    !$omp parallel do private(k,i)
                     do k = 0, nzp
                         do i = 0, nxp
                             values(i, j, k) = values(i, j-1, k)
@@ -138,6 +148,7 @@ contains
 
                 case(5)
                     k = 1
+                    !$omp parallel do private(j,i)
                     do j = 0, nyp
                         do i = 0, nxp
                             values(i, j, k-1) = values(i, j, k)
@@ -146,6 +157,7 @@ contains
 
                 case(6)
                     k = nzp
+                    !$omp parallel do private(j,i)
                     do j = 0, nyp
                         do i = 0, nxp
                             values(i, j, k) = values(i, j, k-1)

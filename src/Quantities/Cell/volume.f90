@@ -116,6 +116,7 @@ contains
 
      is_neg = 0
      nz = this%d3
+         !$omp parallel do private(k,j,i,ip,jp,kp,x1,x2,x3,x4,x5,x6,x7,x8,y1,y2,y3,y4,y5,y6,y7,y8,z1,z2,z3,z4,z5,z6,z7,z8)
          do k = 1, nz
             do j = 1, ny
                do i = 1, nx
